@@ -14,12 +14,26 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
+/**
+ * The type Webflux application.
+ */
 @SpringBootApplication
 public class WebfluxApplication {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(WebfluxApplication.class, args);
     }
 
+    /**
+     * Routes router function.
+     *
+     * @param handler the handler
+     * @return the router function
+     */
     @Bean
     RouterFunction<ServerResponse> routes(UserHandler handler) {
         return nest(path("/"),

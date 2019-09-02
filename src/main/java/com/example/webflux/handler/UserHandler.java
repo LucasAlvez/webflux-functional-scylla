@@ -14,12 +14,21 @@ import reactor.core.publisher.Mono;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
+/**
+ * The type User handler.
+ */
 @Component
 public class UserHandler {
 
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Save mono.
+     *
+     * @param request the request
+     * @return the mono
+     */
     public Mono<ServerResponse> save(ServerRequest request) {
         Mono<User> userMono = request.bodyToMono(User.class);
 
@@ -29,6 +38,12 @@ public class UserHandler {
                         .body(this.userRepository.save(user), User.class));
     }
 
+    /**
+     * Update mono.
+     *
+     * @param request the request
+     * @return the mono
+     */
     public Mono<ServerResponse> update(ServerRequest request) {
         Mono<User> userMono = request.bodyToMono(User.class);
 
@@ -38,6 +53,12 @@ public class UserHandler {
                         .body(this.userRepository.save(user), User.class));
     }
 
+    /**
+     * Find by id mono.
+     *
+     * @param request the request
+     * @return the mono
+     */
     public Mono<ServerResponse> findById(ServerRequest request) {
         String cpf = request.pathVariable("cpf");
 
@@ -52,6 +73,12 @@ public class UserHandler {
                 .switchIfEmpty(dataNotFound);
     }
 
+    /**
+     * Find all mono.
+     *
+     * @param request the request
+     * @return the mono
+     */
     public Mono<ServerResponse> findAll(ServerRequest request) {
         Flux<User> users = this.userRepository.findAll();
 
@@ -60,6 +87,12 @@ public class UserHandler {
                 .body(users, User.class);
     }
 
+    /**
+     * Delete mono.
+     *
+     * @param request the request
+     * @return the mono
+     */
     public Mono<ServerResponse> delete(ServerRequest request) {
         String cpf = request.pathVariable("cpf");
 
