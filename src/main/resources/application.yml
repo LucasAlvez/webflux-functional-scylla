@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: '@project.name@'
+  profiles:
+    active: local
+
+---
+
+spring:
+  profiles: local
+  data:
+    cassandra:
+      contact-points: "localhost"
+      keyspace-name: example
+      port: 9042
+      username: "src/main/resources/secrets/cassandra-username.txt"
+      password: "src/main/resources/secrets/cassandra-password.txt"
+
+server:
+  port: 8081
+
+# Management endpoints actuator
+management:
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include:
+          - health
+          - metrics
+          - info
+  metrics:
+    enable:
+      jvm.memory.used: true
+      process.uptime: true
+      jdbc.connections.active: true
+      process.cpu.usage: true
+      all: false
